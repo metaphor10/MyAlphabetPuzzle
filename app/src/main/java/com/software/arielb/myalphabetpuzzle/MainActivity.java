@@ -42,11 +42,13 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
         }
         TextView textView=(TextView)findViewById(R.id.helloWorld);
         textView.setOnTouchListener(this);
+        //textView.setOnDragListener(this);
         textView.setText("L");
         //textView.setOnDragListener(this);
         TextView innerText=(TextView)findViewById(R.id.inside_linear_layout);
-
-        innerText.setOnDragListener(this);
+        RelativeLayout rl=(RelativeLayout)findViewById(R.id.main_activity_layout);
+        rl.setOnDragListener(this);
+        //innerText.setOnDragListener(this);
     }
     private void navigateToLogin() {
         Intent intent = new Intent(this, LoginActivity.class);
@@ -89,10 +91,15 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
             String place=event.getLocalState().toString();
             Toast.makeText(MainActivity.this,place,Toast.LENGTH_LONG).show();
             //v.setVisibility(View.INVISIBLE);
-            TextView newView=(TextView)findViewById(R.id.inside_linear_layout);
+            //TextView newView=(TextView)findViewById(R.id.inside_linear_layout);
+            float yCoor =event.getY();
+            float xCoor=event.getX();
             TextView oldText=(TextView)findViewById(R.id.helloWorld);
-            newView.setText(oldText.getText());
-            newView.invalidate();
+            oldText.setX(xCoor);
+            oldText.setY(yCoor);
+            //oldText.invalidate();
+            //newView.invalidate();
+
 
         }
 
