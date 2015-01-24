@@ -42,6 +42,9 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
         }
         TextView textView=(TextView)findViewById(R.id.helloWorld);
         textView.setOnTouchListener(this);
+        //textView.setOnDragListener(this);
+        RelativeLayout relativeLayout=(RelativeLayout)findViewById(R.id.main_activity_layout);
+        relativeLayout.setOnDragListener(this);
     }
     private void navigateToLogin() {
         Intent intent = new Intent(this, LoginActivity.class);
@@ -80,7 +83,12 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
 
     @Override
     public boolean onDrag(View v, DragEvent event) {
-        Toast.makeText(MainActivity.this,"drag",Toast.LENGTH_LONG).show();
+        if (event.getAction() == DragEvent.ACTION_DROP) {
+            String place=event.getLocalState().toString();
+            Toast.makeText(MainActivity.this,place,Toast.LENGTH_LONG).show();
+
+        }
+
 
         return true;
     }
@@ -88,7 +96,9 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if(event.getAction()==MotionEvent.ACTION_DOWN){
-            Toast.makeText(MainActivity.this,"touch",Toast.LENGTH_LONG).show();
+            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+            v.startDrag(null,shadowBuilder,v,0);
+            //Toast.makeText(MainActivity.this,"touch",Toast.LENGTH_LONG).show();
 
         }
 
