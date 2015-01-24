@@ -25,11 +25,7 @@
         android:id="@+id/linear_layout_game"
         android:background="@android:color/holo_red_light"
         >
-         <TextView
-             android:layout_width="20dp"
-             android:layout_height="20dp"
-             android:id="@+id/inside_linear_layout"
-             />
+
 
         </LinearLayout>
 

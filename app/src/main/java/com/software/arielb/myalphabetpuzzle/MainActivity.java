@@ -1,16 +1,21 @@
 package com.software.arielb.myalphabetpuzzle;
 
+import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.Point;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -27,8 +32,16 @@ import java.util.List;
 
 public class MainActivity extends FragmentActivity implements View.OnDragListener, View.OnTouchListener {
     public static final String TAG = MainActivity.class.getSimpleName();
-
+    TextView currentText;
     ArrayList<TextView> word;
+
+    WindowManager wm;
+    Display display;
+    Point size;
+    float screenWidth, screenHeight;
+    private static final String IMAGEVIEW_TAG = "icon bitmap";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +50,7 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
 
         setContentView(R.layout.activity_main);
         ParseAnalytics.trackAppOpened(getIntent());
-
+        currentText=null;
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser == null) {
             navigateToLogin();
@@ -45,6 +58,14 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
         else {
             Log.i(TAG, currentUser.getUsername());
         }
+        wm = (WindowManager) this.getSystemService(this.WINDOW_SERVICE);
+        display = wm.getDefaultDisplay();
+
+        DisplayMetrics metrics=this.getResources().getDisplayMetrics();
+        size = new Point();
+        display.getSize(size);
+        screenWidth = metrics.widthPixels;
+        screenHeight = metrics.heightPixels;
 //        TextView textView=(TextView)findViewById(R.id.helloWorld);
 //        textView.setOnTouchListener(this);
 //        //textView.setOnDragListener(this);
@@ -58,14 +79,22 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
         for (int i=0;i<wordOfChoice.length();i++){
             Log.i(TAG,"inside loop");
             TextView mFirst=new TextView(this);
-            mFirst.setText("L");
-            mFirst.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+            mFirst.generateViewId();
+            mFirst.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+            mFirst.setY((screenHeight/2)-300);
+            mFirst.setX((i*120));
+            mFirst.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+           mFirst.setText(wordOfChoice.substring(i,i+1));
+
             mFirst.setOnTouchListener(this);
+
+
             word.add(mFirst);
         }
 
 
         RelativeLayout rl=(RelativeLayout)findViewById(R.id.main_activity_layout);
+        LinearLayout ll=(LinearLayout)findViewById(R.id.linear_layout_game);
         //rl.addView(word.get(0));
         Log.i(TAG,"beofre second loop");
         for (int i=0;i<word.size();i++){
@@ -112,15 +141,19 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
     @Override
     public boolean onDrag(View v, DragEvent event) {
         if (event.getAction() == DragEvent.ACTION_DROP) {
-            String place=event.getLocalState().toString();
-            Toast.makeText(MainActivity.this,place,Toast.LENGTH_LONG).show();
+//            String place=event.getLocalState().toString();
+//            Toast.makeText(MainActivity.this,place,Toast.LENGTH_LONG).show();
             //v.setVisibility(View.INVISIBLE);
             //TextView newView=(TextView)findViewById(R.id.inside_linear_layout);
             float yCoor =event.getY();
             float xCoor=event.getX();
-
-           v.setX(xCoor);
-            v.setY(yCoor);
+           currentText.setY(yCoor);
+            currentText.setX(xCoor);
+            String number = "Y "+event.getY()+", X "+event.getX();
+            Toast.makeText(MainActivity.this,number,Toast.LENGTH_LONG).show();
+            currentText=null;
+//           v.setX(xCoor);
+//            v.setY(yCoor);
             //oldText.invalidate();
             //newView.invalidate();
 
@@ -134,7 +167,11 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if(event.getAction()==MotionEvent.ACTION_DOWN){
+            String number="Y "+v.getY();
+            number+="X "+v.getX();
+            Toast.makeText(MainActivity.this,number,Toast.LENGTH_LONG).show();
             View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+            currentText=(TextView)v;
             v.startDrag(null,shadowBuilder,v,0);
             //Toast.makeText(MainActivity.this,"touch",Toast.LENGTH_LONG).show();
 
