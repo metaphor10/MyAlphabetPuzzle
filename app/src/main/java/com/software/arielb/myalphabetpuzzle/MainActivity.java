@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,10 +21,14 @@ import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
 import com.software.arielb.myalphabetpuzzle.ui.LoginActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends FragmentActivity implements View.OnDragListener, View.OnTouchListener {
     public static final String TAG = MainActivity.class.getSimpleName();
-    ImageView mImageView;
+
+    ArrayList<TextView> word;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +45,32 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
         else {
             Log.i(TAG, currentUser.getUsername());
         }
-        TextView textView=(TextView)findViewById(R.id.helloWorld);
-        textView.setOnTouchListener(this);
-        //textView.setOnDragListener(this);
-        textView.setText("L");
-        //textView.setOnDragListener(this);
-        TextView innerText=(TextView)findViewById(R.id.inside_linear_layout);
+//        TextView textView=(TextView)findViewById(R.id.helloWorld);
+//        textView.setOnTouchListener(this);
+//        //textView.setOnDragListener(this);
+//        textView.setText("L");
+//        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+//        //textView.setOnDragListener(this);
+//        TextView innerText=(TextView)findViewById(R.id.inside_linear_layout);
+        word=new ArrayList<TextView>();
+        String wordOfChoice="hello";
+        Log.i(TAG,"before first loop");
+        for (int i=0;i<wordOfChoice.length();i++){
+            Log.i(TAG,"inside loop");
+            TextView mFirst=new TextView(this);
+            mFirst.setText("L");
+            mFirst.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+            mFirst.setOnTouchListener(this);
+            word.add(mFirst);
+        }
+
+
         RelativeLayout rl=(RelativeLayout)findViewById(R.id.main_activity_layout);
+        //rl.addView(word.get(0));
+        Log.i(TAG,"beofre second loop");
+        for (int i=0;i<word.size();i++){
+            rl.addView(word.get(i));
+        }
         rl.setOnDragListener(this);
         //innerText.setOnDragListener(this);
     }
@@ -94,9 +118,9 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
             //TextView newView=(TextView)findViewById(R.id.inside_linear_layout);
             float yCoor =event.getY();
             float xCoor=event.getX();
-            TextView oldText=(TextView)findViewById(R.id.helloWorld);
-            oldText.setX(xCoor);
-            oldText.setY(yCoor);
+
+           v.setX(xCoor);
+            v.setY(yCoor);
             //oldText.invalidate();
             //newView.invalidate();
 
