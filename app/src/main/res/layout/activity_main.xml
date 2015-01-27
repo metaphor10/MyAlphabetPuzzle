@@ -3,11 +3,44 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context=".MainActivity"
-                android:id="@+id/main_activity_layout"
-
+                style="@style/AuthBackground"
                 >
 
-
+    <ImageView
+        android:id="@+id/imageView2"
+        style="@style/AuthBackgroundImage"/>
+    <TextView
+        android:id="@+id/title"
+        style="@style/MainTitleTitle"/>
+    <TextView
+        android:id="@+id/subTitle"
+        style="@style/MainSubtitle"/>
+    <ImageView
+        android:id="@+id/buttonDivider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subTitle"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/button_divider"
+        />
+    <Button
+        android:id="@+id/playButton"
+        style="@style/AuthButton"
+        android:text="@string/play_button_label"
+        android:layout_below="@id/subTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/buttonDivider"
+        android:layout_marginRight="0dp"
+        />
+    <Button
+        android:id="@+id/addButton"
+        style="@style/AuthButton"
+        android:text="@string/add_words_button"
+        android:layout_below="@id/subTitle"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/buttonDivider"
+        android:layout_marginLeft="0dp"
+        />
 
 
 

@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.software.arielb.myalphabetpuzzle.ui.AddWordsActivity"
+                style="@style/AuthBackground"
+                >
+    <ImageView
+        android:id="@+id/imageView2"
+        style="@style/AuthBackgroundImage"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:layout_alignParentBottom="true"
+
+        android:layout_centerHorizontal="true"
+        android:hint="Enter new word"/>
+
+    <Button
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+android:layout_toRightOf="@id/editText"
+/>
+
+
+</RelativeLayout>

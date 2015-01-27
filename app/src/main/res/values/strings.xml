@@ -19,5 +19,9 @@
     <string name="subtitle_text">A game of building words</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="menu_logout_label">Logout</string>
+    <string name="title_activity_game_screen">GameScreenActivity</string>
+    <string name="play_button_label">PLAY</string>
+    <string name="add_words_button">CREATE/ADD</string>
+    <string name="title_activity_add_words">AddWordsActivity</string>
 
 </resources>

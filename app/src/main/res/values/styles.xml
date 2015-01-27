@@ -175,12 +175,29 @@
         <item name="android:text">@string/app_name</item>
 
     </style>
+    <style name="MainTitleTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="android:textSize">60sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">@string/app_name</item>
+
+    </style>
 
     <style name="AuthSubTitle" parent="AuthTitle">
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:textSize">13sp</item>
         <item name="android:layout_below">@id/title</item>
         <item name="android:text">@string/subtitle_text</item>
+    </style>
+    <style name="MainSubtitle" parent="MainTitleTitle">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_below">@id/title</item>
+        <item name="android:text">@string/main_subtitle_text</item>
     </style>
 
     <style name="AuthFieldContainer">
@@ -227,4 +244,6 @@
         <item name="android:scaleType">fitXY</item>
         <item name="android:adjustViewBounds">true</item>
     </style>
+
+    <string name="main_subtitle_text">Welcome to My Alphabet Puzzle game click on the create/add button to add words or click on the play button to go to the game screen</string>
 </resources>
