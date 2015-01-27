@@ -37,6 +37,7 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
     TextView currentText;
     ArrayList<TextView> word;
     ArrayList<TextView> target;
+    int numberOfWords;
     Random mRandom;
 
     WindowManager wm;
@@ -97,6 +98,7 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
 
             word.add(mFirst);
         }
+        numberOfWords=wordOfChoice.length();
         for (int i=0;i<wordOfChoice.length();i++){
             TextView mFirst=new TextView(this);
             mFirst.setId(mFirst.generateViewId());
@@ -193,13 +195,21 @@ public class MainActivity extends FragmentActivity implements View.OnDragListene
             String temp1=temp.getText().toString();
             if (temp.getText().equals(currentText.getText()))
             {
-                Toast.makeText(MainActivity.this,"same",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this,"same",Toast.LENGTH_SHORT).show();
+                currentText.setVisibility(View.GONE);
+                if (numberOfWords>0){
+                    numberOfWords--;
+                    if (numberOfWords==0){
+                        finish();
+                    }
+                }
+
             }
-           currentText.setY(yCoor);
-            currentText.setX(xCoor);
-            String number = "Y "+event.getY()+", X "+event.getX();
+//           currentText.setY(yCoor);
+//            currentText.setX(xCoor);
+//            String number = "Y "+event.getY()+", X "+event.getX();
            // Toast.makeText(MainActivity.this,number,Toast.LENGTH_LONG).show();
-            currentText=null;
+//            currentText=null;
 //           v.setX(xCoor);
 //            v.setY(yCoor);
             //oldText.invalidate();
